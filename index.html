@@ -279,7 +279,7 @@
         }
 
         /* =========================================
-           NOUVEAU : VIDÉO PLEIN ÉCRAN SUR MOBILE
+           NOUVEAU : VIDÉO PLEIN ÉCRAN SUR MOBILE (SANS BORDURE)
            ========================================= */
         @media (max-width: 768px) {
             .video-full-mobile {
@@ -291,7 +291,10 @@
                 box-shadow: none !important;
             }
             .video-full-mobile video {
-                border-radius: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                min-height: 300px; /* Hauteur minimale pour que ce soit grand */
+                object-fit: cover;
             }
         }
 
@@ -494,7 +497,6 @@
     <!-- NOUVELLE SECTION : VIDÉO OPTION B (PLEIN ÉCRAN SUR MOBILE) -->
     <section class="pt-0 pb-12 md:pt-0 md:pb-20 bg-white">
         <div class="container mx-auto max-w-5xl px-4 md:px-4">
-            <!-- La classe video-full-mobile est ajoutée ici -->
             <div class="relative w-full rounded-sm overflow-hidden shadow-2xl border border-gray-200 video-full-mobile">
                 <video 
                     src="https://videotourl.com/videos/1792774302767-24cbf248-18ec-478d-9ff1-d05e81ee780a.mov" 
