@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drive'OR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            light: '#cbb07c',
+                            DEFAULT: '#b39359',
+                            dark: '#967841',
+                        },
+                        dark: '#0f0f0f',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
+        h1, h2, h3, .font-title { font-family: 'Cinzel', serif; }
+
+        /* =========================================
+           ANIMATION "PORTE QUI S'OUVRE" (openDownLeftReturn)
+           ========================================= */
+        @keyframes openDownLeftReturn {
+            0% {
+                transform-origin: bottom left;
+                transform: rotate(-110deg);
+                animation-timing-function: ease-in-out;
+            }
+            100% {
+                transform-origin: bottom left;
+                transform: rotate(0deg);
+                animation-timing-function: ease-out;
+            }
+        }
+
+        /* =========================================
+           ANIMATIONS AU DÉFILEMENT (SCROLL REVEAL)
+           ========================================= */
+        .reveal-card {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Quand la carte devient visible, on lance l'animation sur l'icône principale */
+        .reveal-card.is-visible .main-icon {
+            animation-name: openDownLeftReturn;
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+
+        /* Délai en cascade pour chaque carte */
+        .reveal-card:nth-child(1) { transition-delay: 0ms; }
+        .reveal-card:nth-child(2) { transition-delay: 150ms; }
+        .reveal-card:nth-child(3) { transition-delay: 300ms; }
+        .reveal-card:nth-child(4) { transition-delay: 100ms; }
+        .reveal-card:nth-child(5) { transition-delay: 250ms; }
+        .reveal-card:nth-child(6) { transition-delay: 400ms; }
+
+        /* Petit délai supplémentaire pour l'icône (elle s'ouvre après l'apparition de la carte) */
+        .reveal-card:nth-child(1) .main-icon { animation-delay: 0.2s; }
+        .reveal-card:nth-child(2) .main-icon { animation-delay: 0.35s; }
+        .reveal-card:nth-child(3) .main-icon { animation-delay: 0.5s; }
+        .reveal-card:nth-child(4) .main-icon { animation-delay: 0.3s; }
+        .reveal-card:nth-child(5) .main-icon { animation-delay: 0.45s; }
+        .reveal-card:nth-child(6) .main-icon { animation-delay: 0.6s; }
+
+        /* =========================================
+           ANIMATION AU SURVOL & CLIC (GLOW DORÉ + ELASTIQUE)
+           ========================================= */
+        .service-card {
+            transition: all 0.4s ease, transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover {
+            box-shadow: 0 0 25px rgba(179, 147, 89, 0.15);
+            border-color: rgba(179, 147, 89, 0.4);
+            background-color: #161616;
+        }
+        .service-card .bg-icon {
+            transition: all 0.5s ease;
+        }
+        .service-card:hover .bg-icon {
+            color: rgba(179, 147, 89, 0.15);
+            transform: scale(1.1) rotate(-5deg);
+        }
+        .service-card .main-icon {
+            transition: transform 0.4s ease;
+            display: inline-block;
+        }
+        .service-card:hover .main-icon {
+            transform: translateY(-4px);
+        }
+        .service-card:active {
+            transform: scale(0.97);
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* =========================================
+           BOUTON MENU ANIMÉ (Style Google)
+           ========================================= */
+        .menu-btn {
+            --size: 32px;
+            --step: 0.2s;
+            --line: hsl(0 0% 100%);
+            outline-color: var(--line);
+            background: transparent;
+            height: var(--size);
+            aspect-ratio: 1;
+            padding: calc(var(--size) * 0.1);
+            border-radius: calc(var(--size) * 0.1);
+            border: none;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform var(--step) var(--ease-elastic-5), background var(--step);
+            transform: translateY(var(--elevate, 0)) scale(var(--scale, 1));
+        }
+        .menu-btn:hover { background: hsla(0, 0%, 100%, 0.1); }
+        .menu-btn:active { --elevate: 5%; --scale: 0.9; }
+        .menu-btn span {
+            flex: 1;
+            width: 100%;
+            background: linear-gradient(transparent 0 35%, var(--line) 35% 65%, transparent 65%);
+            translate: var(--x, 0) var(--y, 0);
+            rotate: var(--rotate, 0deg);
+            transition-property: translate, rotate;
+            transition-duration: var(--step);
+            transition-delay: calc(var(--step) * var(--translate-index, 0)), calc(var(--step) * var(--rotate-index, 0));
+            transition-timing-function: cubic-bezier(.5, 1.75, .75, 1.25);
+        }
+        [aria-pressed="true"] span:nth-of-type(1) { --y: 100%; --rotate: 45deg; }
+        [aria-pressed="true"] span:nth-of-type(2) { --x: 200%; }
+        [aria-pressed="true"] span:nth-of-type(3) { --y: -100%; --rotate: -45deg; }
+        [aria-pressed="true"] span:nth-of-type(2) { --translate-index: 0; }
+        [aria-pressed="true"] span:is(:nth-of-type(1), :nth-of-type(3)) { --translate-index: 1.5; --rotate-index: 2.5; }
+        [aria-pressed="true"], [aria-pressed="true"]:is(:hover, :active) { --elevate: 5%; --scale: 0.9; }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased selection:bg-gold selection:text-white">
+
+    <!-- Floating WhatsApp Button -->
+    <a href="#" aria-label="Contact WhatsApp" class="fixed top-48 right-4 md:bottom-8 md:top-auto md:right-8 z-50 bg-[#25D366] text-white w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+        <i class="fa-brands fa-whatsapp text-2xl md:text-3xl"></i>
+    </a>
+
+    <!-- Header / Hero Section -->
+    <header class="relative min-h-screen flex flex-col justify-between bg-dark text-white overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://i.ibb.co/mpJSW7Z/Gemini-Generated-Image-waywscwaywscwayw.jpg" alt="Hero" class="w-full h-full object-cover object-center">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80"></div>
+        </div>
+
+        <nav class="relative z-10 container mx-auto px-4 py-4 flex items-center justify-between">
+            <button id="mobile-menu-btn" aria-pressed="false" aria-label="Menu" class="menu-btn md:hidden">
+                <span class="sr-only">Menu</span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+
+            <div class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest font-medium">
+                <a href="#" class="hover:text-gold transition">Accueil</a>
+                <a href="#services" class="hover:text-gold transition">Nos Services</a>
+                <a href="#reservation" class="hover:text-gold transition">Réservation</a>
+                <a href="#flotte" class="hover:text-gold transition">Notre Flotte</a>
+                <a href="#contact" class="hover:text-gold transition">Contact</a>
+            </div>
+            <div class="flex items-center space-x-4 md:space-x-6">
+                <div class="flex items-center">
+                    <img src="https://i.ibb.co/QR5vjKC/logo-fond-noir-removebg-preview-2.png" alt="Logo" class="h-12 md:h-16 w-auto object-contain">
+                </div>
+            </div>
+        </nav>
+
+        <div class="relative z-10 container mx-auto px-4 flex-grow flex flex-col items-center justify-center text-center my-8">
+            <h1 class="text-2xl md:text-4xl lg:text-5xl font-normal tracking-wider uppercase leading-snug mb-6 max-w-3xl drop-shadow-md">
+                Un chauffeur<br>à votre disposition
+            </h1>
+            <a href="#reservation" class="bg-gold hover:bg-gold-dark text-white text-xs md:text-sm uppercase tracking-[0.2em] font-semibold py-4 px-10 rounded-sm shadow-md transition duration-300 mb-4">
+                Devis gratuit & Réservation
+            </a>
+            <p class="text-sm md:text-base text-white font-bold tracking-wide drop-shadow-md">
+                Service avec chauffeurs dans toute la France
+            </p>
+        </div>
+        <div class="relative z-10 h-10"></div>
+    </header>
+
+    <!-- Section 1: NOS SERVICES -->
+    <section id="services" class="pt-6 pb-12 md:pt-8 md:pb-20 px-4 container mx-auto max-w-6xl">
+        <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+            <p class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-gold font-semibold mb-2">
+                Chauffeur privé VTC à Paris
+            </p>
+            <h2 class="text-xl md:text-3xl font-normal uppercase tracking-widest text-gray-900 mb-6">
+                Nos Services
+            </h2>
+            <p class="text-xs md:text-sm text-gray-600 leading-relaxed font-light">
+                Je suis un chauffeur indépendant et je mets à votre disposition mon véhicule haut de gamme récent. Grâce à mon expérience, je vous assure des trajets discrets, ponctuels et sur-mesure pour tous vos déplacements professionnels ou personnels à Paris et en Île-de-France.
+            </p>
+        </div>
+
+        <!-- Grille des services type Bento avec animations -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            
+            <!-- Carte 1 -->
+            <div class="service-card reveal-card relative bg-[#111111] p-8 overflow-hidden group border border-gray-800 cursor-pointer">
+                <i class="bg-icon fa-solid fa-plane absolute -right-4 -bottom-4 text-8xl text-white/5"></i>
+                <div class="relative z-10">
+                    <div class="text-gold mb-4"><i class="main-icon fa-solid fa-plane text-2xl"></i></div>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-white mb-2">Transfert hubs</h3>
+                    <p class="text-xs text-gray-400 font-light leading-relaxed">Prise en charge vers tous les aéroports et gares de Poitiers et alentours.</p>
+                </div>
+            </div>
+
+            <!-- Carte 2 -->
+            <div class="service-card reveal-card relative bg-[#111111] p-8 overflow-hidden group border border-gray-800 cursor-pointer">
+                <i class="bg-icon fa-solid fa-ring absolute -right-4 -bottom-4 text-8xl text-white/5"></i>
+                <div class="relative z-10">
+                    <div class="text-gold mb-4"><i class="main-icon fa-solid fa-ring text-2xl"></i></div>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-white mb-2">Mariage & Événements</h3>
+                    <p class="text-xs text-gray-400 font-light leading-relaxed">Un service élégant pour sublimer tous vos moments inoubliables.</p>
+                </div>
+            </div>
+
+            <!-- Carte 3 -->
+            <div class="service-card reveal-card relative bg-[#111111] p-8 overflow-hidden group border border-gray-800 cursor-pointer">
+                <i class="bg-icon fa-solid fa-key absolute -right-4 -bottom-4 text-8xl text-white/5"></i>
+                <div class="relative z-10">
+                    <div class="text-gold mb-4"><i class="main-icon fa-solid fa-key text-2xl"></i></div>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-white mb-2">Mise à Disposition</h3>
+                    <p class="text-xs text-gray-400 font-light leading-relaxed">Votre chauffeur privé à la journée pour tous vos rendez-vous.</p>
+                </div>
+            </div>
+
+            <!-- Carte 4 -->
+            <div class="service-card reveal-card relative bg-[#111111] p-8 overflow-hidden group border border-gray-800 cursor-pointer">
+                <i class="bg-icon fa-solid fa-bag-shopping absolute -right-4 -bottom-4 text-8xl text-white/5"></i>
+                <div class="relative z-10">
+                    <div class="text-gold mb-4"><i class="main-icon fa-solid fa-bag-shopping text-2xl"></i></div>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-white mb-2">Shopping & Loisirs</h3>
+                    <p class="text-xs text-gray-400 font-light leading-relaxed">Laissez-vous conduire aux boutiques et profitez sans le stress.</p>
+                </div>
+            </div>
+
+            <!-- Carte 5 -->
+            <div class="service-card reveal-card relative bg-[#111111] p-8 overflow-hidden group border border-gray-800 cursor-pointer">
+                <i class="bg-icon fa-solid fa-briefcase absolute -right-4 -bottom-4 text-8xl text-white/5"></i>
+                <div class="relative z-10">
+                    <div class="text-gold mb-4"><i class="main-icon fa-solid fa-briefcase text-2xl"></i></div>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-white mb-2">Déplacements Pro</h3>
+                    <p class="text-xs text-gray-400 font-light leading-relaxed">Gagnez un temps précieux et travaillez pendant vos trajets pros.</p>
+                </div>
+            </div>
+
+            <!-- Carte 6 -->
+            <div class="service-card reveal-card relative bg-[#111111] p-8 overflow-hidden group border border-gray-800 cursor-pointer">
+                <i class="bg-icon fa-solid fa-camera absolute -right-4 -bottom-4 text-8xl text-white/5"></i>
+                <div class="relative z-10">
+                    <div class="text-gold mb-4"><i class="main-icon fa-solid fa-camera text-2xl"></i></div>
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-white mb-2">Excursion & Tourisme</h3>
+                    <p class="text-xs text-gray-400 font-light leading-relaxed">Explorez Paris et ses trésors avec un guide à votre écoute.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA sous les 6 cartes -->
+        <div class="mt-12 text-center">
+            <a href="#reservation" class="inline-block bg-gold hover:bg-gold-dark text-white text-xs md:text-sm uppercase tracking-[0.2em] font-semibold py-4 px-10 rounded-sm shadow-md transition duration-300">
+                Devis gratuit & Réservation
+            </a>
+        </div>
+    </section>
+
+    <!-- Section 2: Gold Feature Block -->
+    <section id="reservation" class="bg-gold py-12 md:py-20 px-4">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-8 md:mb-12">
+                <p class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-black font-bold mb-2">Réservez votre chauffeur privé</p>
+                <h2 class="font-sans text-xl md:text-3xl font-normal text-white leading-snug max-w-md mx-auto">Planifiez vos déplacements en quelques cliques</h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 shadow-xl">
+                <div class="h-64 sm:h-80 lg:h-auto overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1000&q=80" alt="Intérieur" class="w-full h-full object-cover">
+                </div>
+                <div class="bg-white p-6 sm:p-10 flex flex-col justify-between text-center lg:text-left">
+                    <div class="space-y-4 text-xs md:text-sm text-gray-600 font-light leading-relaxed">
+                        <p>Profitez d'un service sur-mesure pour tous vos trajets à Paris et en Île-de-France. Que ce soit pour un transfert vers les aéroports de Roissy Charles de Gaulle, Orly ou du Bourget, je vous assure une prise en charge irréprochable de porte à porte.</p>
+                        <p>Mon véhicule est équipé du Wi-Fi, de chargeurs pour smartphones, de bouteilles d'eau et de confiseries pour garantir votre confort tout au long de votre voyage. Réservez en ligne rapidement et bénéficiez d'un tarif fixe connu à l'avance, sans aucune surprise.</p>
+                    </div>
+                    <div class="mt-8 text-center lg:text-left">
+                        <a href="#contact" class="inline-block bg-black hover:bg-gray-800 text-white text-[10px] md:text-xs uppercase tracking-[0.2em] font-semibold py-3.5 px-7 transition duration-300">Réserver un chauffeur</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Fleet -->
+    <section id="flotte" class="py-12 md:py-20 px-4 container mx-auto max-w-6xl">
+        <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+            <p class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-gold font-semibold mb-2">Mon véhicule</p>
+            <h2 class="text-lg md:text-2xl font-normal uppercase tracking-widest text-gray-900 leading-relaxed">Un confort haut de gamme</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+            <div class="flex flex-col items-center text-center">
+                <div class="h-40 md:h-48 w-full flex items-center justify-center mb-6 px-4">
+                    <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80" alt="Classe S" class="max-h-full max-w-full object-contain rounded-sm shadow-sm">
+                </div>
+                <h3 class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-900 mb-3">Mercedes Classe S</h3>
+                <p class="text-[11px] md:text-xs text-gray-500 font-light leading-relaxed max-w-xs mb-6 flex-grow">La berline de luxe par excellence. Idéale pour les dirigeants et clients VIP recherchant un confort absolu et une discrétion totale.</p>
+                <a href="#reservation" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
+            </div>
+            <div class="flex flex-col items-center text-center">
+                <div class="h-40 md:h-48 w-full flex items-center justify-center mb-6 px-4">
+                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=800&q=80" alt="Classe E" class="max-h-full max-w-full object-contain rounded-sm shadow-sm">
+                </div>
+                <h3 class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-900 mb-3">Mercedes Classe E</h3>
+                <p class="text-[11px] md:text-xs text-gray-500 font-light leading-relaxed max-w-xs mb-6 flex-grow">Alliance parfaite entre élégance et efficacité pour tous vos déplacements d'affaires et transferts aéroports à Paris.</p>
+                <a href="#reservation" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
+            </div>
+            <div class="flex flex-col items-center text-center">
+                <div class="h-40 md:h-48 w-full flex items-center justify-center mb-6 px-4">
+                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=800&q=80" alt="Classe V" class="max-h-full max-w-full object-contain rounded-sm shadow-sm">
+                </div>
+                <h3 class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-900 mb-3">Mercedes Classe V</h3>
+                <p class="text-[11px] md:text-xs text-gray-500 font-light leading-relaxed max-w-xs mb-6 flex-grow">Van spacieux et modulable pouvant accueillir jusqu'à 7 passagers et leurs bagages dans un salon cuir raffiné.</p>
+                <a href="#reservation" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="w-full h-40 md:h-72 overflow-hidden relative">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80" alt="Dashboard" class="w-full h-full object-cover object-center">
+        <div class="absolute inset-0 bg-black/30"></div>
+    </div>
+
+    <!-- SCRIPT POUR LES ANIMATIONS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Animation au défilement (Scroll Reveal + Déclenchement de l'animation de l'icône)
+            const cards = document.querySelectorAll('.reveal-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    } else {
+                        entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // 2. Gestion du bouton de menu mobile animé
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            menuBtn.addEventListener('click', function() {
+                const isPressed = this.getAttribute('aria-pressed') === 'true';
+                this.setAttribute('aria-pressed', !isPressed);
+            });
+        });
+    </script>
+</body>
+</html>
