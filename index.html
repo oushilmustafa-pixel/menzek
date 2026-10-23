@@ -288,6 +288,7 @@
                 width: 100% !important;
                 max-width: 100% !important;
                 overflow: hidden;
+                background-color: #000 !important; /* FOND NOIR POUR SUPPRIMER LES BANDES BLANCHES */
             }
             
             /* On cible le conteneur pour supprimer ses marges */
@@ -295,6 +296,7 @@
                 padding: 0 !important;
                 margin: 0 !important;
                 max-width: 100% !important;
+                background-color: #000 !important;
             }
 
             .video-full-mobile {
@@ -306,15 +308,17 @@
                 border: none !important;
                 box-shadow: none !important;
                 display: block;
+                background-color: #000 !important;
             }
             
             .video-full-mobile video {
                 width: 100% !important;
-                height: auto !important; /* Laisse la hauteur s'adapter à la largeur */
-                aspect-ratio: 16 / 9; /* Force un ratio (si la vidéo est en 16:9) */
+                height: auto !important;
+                aspect-ratio: 16 / 9;
                 object-fit: cover !important; 
                 border-radius: 0 !important;
                 display: block;
+                background-color: #000 !important;
             }
         }
 
@@ -592,68 +596,50 @@
         </div>
     </section>
 
-    <!-- Section 2: Gold Feature Block -->
-    <section id="reservation" class="bg-gold py-12 md:py-20 px-4">
-        <div class="container mx-auto max-w-5xl">
-            <div class="text-center mb-8 md:mb-12">
-                <p class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-black font-bold mb-2">Réservez votre chauffeur privé</p>
-                <h2 class="font-sans text-xl md:text-3xl font-normal text-white leading-snug max-w-md mx-auto">Planifiez vos déplacements en quelques cliques</h2>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 shadow-xl">
-                <div class="h-64 sm:h-80 lg:h-auto overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1000&q=80" alt="Intérieur" class="w-full h-full object-cover">
-                </div>
-                <div class="bg-white p-6 sm:p-10 flex flex-col justify-between text-center lg:text-left">
-                    <div class="space-y-4 text-xs md:text-sm text-gray-600 font-light leading-relaxed">
-                        <p>Profitez d'un service sur-mesure pour tous vos trajets à Paris et en Île-de-France. Que ce soit pour un transfert vers les aéroports de Roissy Charles de Gaulle, Orly ou du Bourget, je vous assure une prise en charge irréprochable de porte à porte.</p>
-                        <p>Mon véhicule est équipé du Wi-Fi, de chargeurs pour smartphones, de bouteilles d'eau et de confiseries pour garantir votre confort tout au long de votre voyage. Réservez en ligne rapidement et bénéficiez d'un tarif fixe connu à l'avance, sans aucune surprise.</p>
-                    </div>
-                    <div class="mt-8 text-center lg:text-left">
-                        <a href="tel:+33651889935" class="inline-block bg-black hover:bg-gray-800 text-white text-[10px] md:text-xs uppercase tracking-[0.2em] font-semibold py-3.5 px-7 transition duration-300">Réserver un chauffeur</a>
-                    </div>
+    <!-- NOUVELLE SECTION : QUI SUIS-JE ? -->
+    <section class="py-16 md:py-24 px-4 bg-white container mx-auto max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+            
+            <!-- Bloc Photo -->
+            <div class="relative">
+                <!-- Bordure dorée décorative -->
+                <div class="absolute inset-0 border-2 border-gold transform translate-x-3 translate-y-3 md:translate-x-4 md:translate-y-4"></div>
+                <!-- Ta photo -->
+                <div class="relative aspect-[4/5] bg-gray-200 overflow-hidden">
+                    <!-- Lien de ta photo mis à jour ici -->
+                    <img src="https://i.ibb.co/nNf1J05F/DSC01997-scaled.jpg" alt="Le chauffeur Drive'OR" class="w-full h-full object-cover">
                 </div>
             </div>
+
+            <!-- Bloc Texte -->
+            <div class="text-left">
+                <p class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-gold font-semibold mb-3">
+                    Derrière le volant
+                </p>
+                <h2 class="text-3xl md:text-4xl font-normal uppercase tracking-widest text-gray-900 mb-6">
+                    Qui suis-je ?
+                </h2>
+                <div class="space-y-4 text-sm md:text-base text-gray-600 font-light leading-relaxed">
+                    <p>
+                        Passionné par l'automobile et le service depuis toujours, j'ai fait le choix de devenir chauffeur indépendant pour offrir un service véritablement sur-mesure. Loin des standards des grandes plateformes, je crois que chaque trajet mérite une attention particulière.
+                    </p>
+                    <p>
+                        Au volant de mon véhicule récent, je m'engage à vous offrir une expérience paisible, discrète et ponctuelle. Que vous soyez un habitué des déplacements professionnels ou que vous prépariez un événement spécial, je mets mon expérience à votre service.
+                    </p>
+                    <p class="font-medium text-gray-900 italic">
+                        "Mon objectif est simple : que vous n'ayez à vous soucier de rien d'autre que de votre destination."
+                    </p>
+                </div>
+                
+                <!-- Petit badge de signature -->
+                <div class="mt-8 flex items-center space-x-4">
+                    <div class="w-12 h-[1px] bg-gold"></div>
+                    <span class="font-title text-lg text-gold">Votre chauffeur Drive'OR</span>
+                </div>
+            </div>
+
         </div>
     </section>
-
-    <!-- Section 3: Fleet -->
-    <section id="flotte" class="py-12 md:py-20 px-4 container mx-auto max-w-6xl">
-        <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16">
-            <p class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-gold font-semibold mb-2">Mon véhicule</p>
-            <h2 class="text-xl md:text-2xl font-normal uppercase tracking-widest text-gray-900 leading-relaxed">Un confort haut de gamme</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
-            <div class="flex flex-col items-center text-center">
-                <div class="h-40 md:h-48 w-full flex items-center justify-center mb-4 md:mb-6 px-4">
-                    <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80" alt="Classe S" class="max-h-full max-w-full object-contain rounded-sm shadow-sm">
-                </div>
-                <h3 class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-900 mb-3">Mercedes Classe S</h3>
-                <p class="text-[11px] md:text-xs text-gray-500 font-light leading-relaxed max-w-xs mb-6 flex-grow">La berline de luxe par excellence. Idéale pour les dirigeants et clients VIP recherchant un confort absolu et une discrétion totale.</p>
-                <a href="tel:+33651889935" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
-            </div>
-            <div class="flex flex-col items-center text-center">
-                <div class="h-40 md:h-48 w-full flex items-center justify-center mb-4 md:mb-6 px-4">
-                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=800&q=80" alt="Classe E" class="max-h-full max-w-full object-contain rounded-sm shadow-sm">
-                </div>
-                <h3 class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-900 mb-3">Mercedes Classe E</h3>
-                <p class="text-[11px] md:text-xs text-gray-500 font-light leading-relaxed max-w-xs mb-6 flex-grow">Alliance parfaite entre élégance et efficacité pour tous vos déplacements d'affaires et transferts aéroports à Paris.</p>
-                <a href="tel:+33651889935" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
-            </div>
-            <div class="flex flex-col items-center text-center">
-                <div class="h-40 md:h-48 w-full flex items-center justify-center mb-4 md:mb-6 px-4">
-                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=800&q=80" alt="Classe V" class="max-h-full max-w-full object-contain rounded-sm shadow-sm">
-                </div>
-                <h3 class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-900 mb-3">Mercedes Classe V</h3>
-                <p class="text-[11px] md:text-xs text-gray-500 font-light leading-relaxed max-w-xs mb-6 flex-grow">Van spacieux et modulable pouvant accueillir jusqu'à 7 passagers et leurs bagages dans un salon cuir raffiné.</p>
-                <a href="tel:+33651889935" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
-            </div>
-        </div>
-    </section>
-
-    <div class="w-full h-32 md:h-72 overflow-hidden relative">
-        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80" alt="Dashboard" class="w-full h-full object-cover object-center">
-        <div class="absolute inset-0 bg-black/30"></div>
-    </div>
 
     <!-- SCRIPT POUR LES ANIMATIONS -->
     <script>
