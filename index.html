@@ -30,9 +30,6 @@
         }
     </script>
     <style>
-        /* =========================================
-           CONFIGURATION EXACTE DU MODÈLE
-           ========================================= */
         :root {
             --black: #0a0a0a;
             --black-2: #121212;
@@ -88,7 +85,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Bordure dorée animée (couche externe) */
         .service-card::before {
             content: '';
             position: absolute;
@@ -113,12 +109,10 @@
             animation: rotateBorder 4s linear infinite;
         }
 
-        /* INVERSION DU SENS DE ROTATION POUR LES CARTES PAIRES */
         .service-card:nth-child(even)::before {
             animation-direction: reverse;
         }
 
-        /* Fond interne (masque le contenu sous la bordure) */
         .service-card::after {
             content: '';
             position: absolute;
@@ -138,7 +132,6 @@
             to { --angle: 360deg; }
         }
 
-        /* Fallback */
         @supports not (background: conic-gradient(from var(--angle), red, blue)) {
             .service-card::before {
                 animation: none;
@@ -166,12 +159,9 @@
             line-height: 1.65;
         }
 
-        /* =========================================
-           HERO TEXT BOTTOM (Mobile Fix)
-           ========================================= */
         @media (max-width: 768px) {
             .hero-text-bottom {
-                padding-bottom: 6rem !important; /* Remonte le texte pour éviter WhatsApp */
+                padding-bottom: 6rem !important;
             }
         }
 
@@ -253,9 +243,6 @@
         [aria-pressed="true"] span:is(:nth-of-type(1), :nth-of-type(3)) { --translate-index: 1.5; --rotate-index: 2.5; }
         [aria-pressed="true"], [aria-pressed="true"]:is(:hover, :active) { --elevate: 5%; --scale: 0.9; }
 
-        /* =========================================
-           MENU MOBILE DÉROULANT
-           ========================================= */
         #mobile-menu {
             max-height: 0;
             overflow: hidden;
@@ -321,12 +308,12 @@
             </div>
         </div>
 
-        <!-- Ajout de la classe hero-text-bottom pour le mobile -->
         <div class="relative z-10 container mx-auto px-4 flex-grow flex flex-col items-center justify-end text-center pb-16 md:pb-24 hero-text-bottom">
             <h1 class="text-3xl md:text-5xl lg:text-6xl font-normal tracking-wider uppercase leading-tight mb-6 max-w-3xl drop-shadow-md">
                 Un chauffeur<br>à votre disposition
             </h1>
-            <a href="#reservation" class="bg-gold hover:bg-gold-dark text-white text-xs md:text-sm uppercase tracking-[0.2em] font-semibold py-4 px-8 md:px-10 rounded-sm shadow-md transition duration-300 mb-4">
+            <!-- MODIFICATION ICI : Lien tel: au lieu de #reservation -->
+            <a href="tel:+33651889935" class="bg-gold hover:bg-gold-dark text-white text-xs md:text-sm uppercase tracking-[0.2em] font-semibold py-4 px-8 md:px-10 rounded-sm shadow-md transition duration-300 mb-4">
                 Devis gratuit & Réservation
             </a>
             <p class="text-sm md:text-base text-white font-bold tracking-wide drop-shadow-md">
@@ -407,7 +394,8 @@
         </div>
 
         <div class="mt-10 md:mt-12 text-center">
-            <a href="#reservation" class="inline-block bg-gold hover:bg-gold-dark text-white text-xs md:text-sm uppercase tracking-[0.2em] font-semibold py-4 px-8 md:px-10 rounded-sm shadow-md transition duration-300">
+            <!-- MODIFICATION ICI : Lien tel: au lieu de #reservation -->
+            <a href="tel:+33651889935" class="inline-block bg-gold hover:bg-gold-dark text-white text-xs md:text-sm uppercase tracking-[0.2em] font-semibold py-4 px-8 md:px-10 rounded-sm shadow-md transition duration-300">
                 Devis gratuit & Réservation
             </a>
         </div>
@@ -491,7 +479,8 @@
                         <p>Mon véhicule est équipé du Wi-Fi, de chargeurs pour smartphones, de bouteilles d'eau et de confiseries pour garantir votre confort tout au long de votre voyage. Réservez en ligne rapidement et bénéficiez d'un tarif fixe connu à l'avance, sans aucune surprise.</p>
                     </div>
                     <div class="mt-8 text-center lg:text-left">
-                        <a href="#contact" class="inline-block bg-black hover:bg-gray-800 text-white text-[10px] md:text-xs uppercase tracking-[0.2em] font-semibold py-3.5 px-7 transition duration-300">Réserver un chauffeur</a>
+                        <!-- MODIFICATION ICI : Lien tel: au lieu de #contact -->
+                        <a href="tel:+33651889935" class="inline-block bg-black hover:bg-gray-800 text-white text-[10px] md:text-xs uppercase tracking-[0.2em] font-semibold py-3.5 px-7 transition duration-300">Réserver un chauffeur</a>
                     </div>
                 </div>
             </div>
@@ -511,7 +500,8 @@
                 </div>
                 <h3 class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-900 mb-3">Mercedes Classe S</h3>
                 <p class="text-[11px] md:text-xs text-gray-500 font-light leading-relaxed max-w-xs mb-6 flex-grow">La berline de luxe par excellence. Idéale pour les dirigeants et clients VIP recherchant un confort absolu et une discrétion totale.</p>
-                <a href="#reservation" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
+                <!-- MODIFICATION ICI : Lien tel: au lieu de #reservation -->
+                <a href="tel:+33651889935" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
             </div>
             <div class="flex flex-col items-center text-center">
                 <div class="h-40 md:h-48 w-full flex items-center justify-center mb-4 md:mb-6 px-4">
@@ -519,7 +509,8 @@
                 </div>
                 <h3 class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-900 mb-3">Mercedes Classe E</h3>
                 <p class="text-[11px] md:text-xs text-gray-500 font-light leading-relaxed max-w-xs mb-6 flex-grow">Alliance parfaite entre élégance et efficacité pour tous vos déplacements d'affaires et transferts aéroports à Paris.</p>
-                <a href="#reservation" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
+                <!-- MODIFICATION ICI : Lien tel: au lieu de #reservation -->
+                <a href="tel:+33651889935" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
             </div>
             <div class="flex flex-col items-center text-center">
                 <div class="h-40 md:h-48 w-full flex items-center justify-center mb-4 md:mb-6 px-4">
@@ -527,7 +518,8 @@
                 </div>
                 <h3 class="text-xs md:text-sm font-bold uppercase tracking-widest text-gray-900 mb-3">Mercedes Classe V</h3>
                 <p class="text-[11px] md:text-xs text-gray-500 font-light leading-relaxed max-w-xs mb-6 flex-grow">Van spacieux et modulable pouvant accueillir jusqu'à 7 passagers et leurs bagages dans un salon cuir raffiné.</p>
-                <a href="#reservation" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
+                <!-- MODIFICATION ICI : Lien tel: au lieu de #reservation -->
+                <a href="tel:+33651889935" class="bg-black hover:bg-gold text-white text-[10px] uppercase tracking-[0.2em] font-medium py-3 px-6 transition duration-300">Réserver ce véhicule</a>
             </div>
         </div>
     </section>
