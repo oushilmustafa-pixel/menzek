@@ -267,6 +267,23 @@
         }
 
         /* =========================================
+           AJOUT SPÉCIFIQUE MOBILE : ROTATION AUTOMATIQUE DE L'ICÔNE
+           ========================================= */
+        @media (max-width: 768px) {
+            /* Animation de rotation */
+            @keyframes iconSpinMobile {
+                0% { transform: rotate(-180deg) scale(0); opacity: 0; }
+                100% { transform: rotate(0deg) scale(1); opacity: 1; }
+            }
+
+            /* Déclenchement de la rotation UNIQUEMENT quand la section est visible */
+            .list-section.is-visible .list-icon {
+                animation: iconSpinMobile 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+                animation-delay: inherit; 
+            }
+        }
+
+        /* =========================================
            BOUTON MENU ANIMÉ
            ========================================= */
         .menu-btn {
@@ -400,7 +417,6 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             
-            <!-- Carte 1 : Avion -->
             <div class="service-card">
                 <i class="bg-icon fa-solid fa-plane absolute -right-4 -bottom-4 text-8xl text-white/5 pointer-events-none"></i>
                 <div class="relative z-10">
@@ -410,7 +426,6 @@
                 </div>
             </div>
 
-            <!-- Carte 2 : Alliances -->
             <div class="service-card">
                 <i class="bg-icon fa-solid fa-ring absolute -right-4 -bottom-4 text-8xl text-white/5 pointer-events-none"></i>
                 <div class="relative z-10">
@@ -420,7 +435,6 @@
                 </div>
             </div>
 
-            <!-- Carte 3 : Clé -->
             <div class="service-card">
                 <i class="bg-icon fa-solid fa-key absolute -right-4 -bottom-4 text-8xl text-white/5 pointer-events-none"></i>
                 <div class="relative z-10">
@@ -430,7 +444,6 @@
                 </div>
             </div>
 
-            <!-- Carte 4 : Sac -->
             <div class="service-card">
                 <i class="bg-icon fa-solid fa-bag-shopping absolute -right-4 -bottom-4 text-8xl text-white/5 pointer-events-none"></i>
                 <div class="relative z-10">
@@ -440,7 +453,6 @@
                 </div>
             </div>
 
-            <!-- Carte 5 : Mallette -->
             <div class="service-card">
                 <i class="bg-icon fa-solid fa-briefcase absolute -right-4 -bottom-4 text-8xl text-white/5 pointer-events-none"></i>
                 <div class="relative z-10">
@@ -450,7 +462,6 @@
                 </div>
             </div>
 
-            <!-- Carte 6 : Appareil Photo -->
             <div class="service-card">
                 <i class="bg-icon fa-solid fa-camera absolute -right-4 -bottom-4 text-8xl text-white/5 pointer-events-none"></i>
                 <div class="relative z-10">
