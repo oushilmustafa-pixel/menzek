@@ -67,7 +67,7 @@
         h1, h2, h3, .font-title { font-family: 'Cinzel', serif; }
 
         /* =========================================
-           CARTE SERVICE + BORDURE DORÉE (EXACT - PLUS LARGE)
+           CARTE SERVICE + BORDURE DORÉE
            ========================================= */
         .service-card {
             position: relative;
@@ -75,25 +75,17 @@
             border-radius: 18px;
             padding: 32px 28px;
             overflow: hidden;
-            /* Apparition automatique en douceur au chargement */
             animation: fadeUp 0.9s ease both;
         }
 
-        /* Décalage progressif (effet cascade) */
         .service-card:nth-child(1) { animation-delay: 0.1s; }
         .service-card:nth-child(2) { animation-delay: 0.25s; }
         .service-card:nth-child(3) { animation-delay: 0.4s; }
         .service-card:nth-child(4) { animation-delay: 0.55s; }
 
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Bordure dorée animée (couche externe) */
@@ -102,7 +94,7 @@
             position: absolute;
             inset: 0;
             border-radius: 18px;
-            padding: 4px; /* LARGEUR DU LASER AUGMENTÉE ICI (2px -> 4px) */
+            padding: 4px;
             background: conic-gradient(
                 from var(--angle),
                 transparent 0deg,
@@ -121,13 +113,18 @@
             animation: rotateBorder 4s linear infinite;
         }
 
+        /* INVERSION DU SENS DE ROTATION POUR LES CARTES PAIRES */
+        .service-card:nth-child(even)::before {
+            animation-direction: reverse;
+        }
+
         /* Fond interne (masque le contenu sous la bordure) */
         .service-card::after {
             content: '';
             position: absolute;
-            inset: 4px; /* ON AJUSTE POUR CORRESPONDRE À LA NOUVELLE ÉPAISSEUR (2px -> 4px) */
+            inset: 4px;
             background: var(--bg-card);
-            border-radius: 14px; /* On réduit l'arrondi pour s'adapter au nouveau fond */
+            border-radius: 14px;
             z-index: 0;
             pointer-events: none;
         }
@@ -138,12 +135,10 @@
         }
 
         @keyframes rotateBorder {
-            to {
-                --angle: 360deg;
-            }
+            to { --angle: 360deg; }
         }
 
-        /* Fallback : si @property non supporté, on anime le background-position */
+        /* Fallback */
         @supports not (background: conic-gradient(from var(--angle), red, blue)) {
             .service-card::before {
                 animation: none;
@@ -157,7 +152,6 @@
             }
         }
 
-        /* Couleurs du texte à l'intérieur de la carte */
         .service-card h3 {
             font-size: 1.15rem;
             font-weight: 700;
@@ -170,6 +164,15 @@
             color: var(--text-muted);
             font-size: 0.93rem;
             line-height: 1.65;
+        }
+
+        /* =========================================
+           HERO TEXT BOTTOM (Mobile Fix)
+           ========================================= */
+        @media (max-width: 768px) {
+            .hero-text-bottom {
+                padding-bottom: 6rem !important; /* Remonte le texte pour éviter WhatsApp */
+            }
         }
 
         /* =========================================
@@ -318,7 +321,8 @@
             </div>
         </div>
 
-        <div class="relative z-10 container mx-auto px-4 flex-grow flex flex-col items-center justify-end text-center pb-16 md:pb-24">
+        <!-- Ajout de la classe hero-text-bottom pour le mobile -->
+        <div class="relative z-10 container mx-auto px-4 flex-grow flex flex-col items-center justify-end text-center pb-16 md:pb-24 hero-text-bottom">
             <h1 class="text-3xl md:text-5xl lg:text-6xl font-normal tracking-wider uppercase leading-tight mb-6 max-w-3xl drop-shadow-md">
                 Un chauffeur<br>à votre disposition
             </h1>
@@ -347,7 +351,6 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             
-            <!-- Cartes avec la classe service-card -->
             <div class="service-card">
                 <i class="bg-icon fa-solid fa-plane absolute -right-4 -bottom-4 text-8xl text-white/5 pointer-events-none"></i>
                 <div class="relative z-10">
