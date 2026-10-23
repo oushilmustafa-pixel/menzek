@@ -288,7 +288,6 @@
                 width: 100% !important;
                 max-width: 100% !important;
                 overflow: hidden;
-                background-color: #000; /* Fond noir pour la section au cas où */
             }
             
             /* On cible le conteneur pour supprimer ses marges */
@@ -307,13 +306,13 @@
                 border: none !important;
                 box-shadow: none !important;
                 display: block;
-                background-color: #000;
             }
             
             .video-full-mobile video {
                 width: 100% !important;
-                height: 60vh !important; /* Hauteur de 60% de l'écran */
-                object-fit: cover !important; /* COVER : remplit tout l'espace sans bandes noires */
+                height: auto !important; /* Laisse la hauteur s'adapter à la largeur */
+                aspect-ratio: 16 / 9; /* Force un ratio (si la vidéo est en 16:9) */
+                object-fit: cover !important; 
                 border-radius: 0 !important;
                 display: block;
             }
