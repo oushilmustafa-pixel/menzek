@@ -267,19 +267,14 @@
         }
 
         /* =========================================
-           AJOUT SPÉCIFIQUE MOBILE : ROTATION AUTOMATIQUE DE L'ICÔNE
+           AJOUT SPÉCIFIQUE MOBILE : ROTATION AUTOMATIQUE DE L'ICÔNE (IDENTIQUE AU PC)
            ========================================= */
         @media (max-width: 768px) {
-            /* Animation de rotation */
-            @keyframes iconSpinMobile {
-                0% { transform: rotate(-180deg) scale(0); opacity: 0; }
-                100% { transform: rotate(0deg) scale(1); opacity: 1; }
-            }
-
-            /* Déclenchement de la rotation UNIQUEMENT quand la section est visible */
+            /* Animation de rotation déclenchée à chaque fois que la section est visible */
             .list-section.is-visible .list-icon {
-                animation: iconSpinMobile 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-                animation-delay: inherit; 
+                transform: rotate(360deg) scale(1.1);
+                color: #cbb07c;
+                transition: transform 0.4s ease, color 0.4s ease;
             }
         }
 
