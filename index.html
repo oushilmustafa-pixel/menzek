@@ -267,7 +267,6 @@
             </div>
         </div>
 
-        <!-- CORRECTION 1 : Contenu poussé vers le bas avec justify-end et pb-16 -->
         <div class="relative z-10 container mx-auto px-4 flex-grow flex flex-col items-center justify-end text-center pb-16 md:pb-24">
             <h1 class="text-3xl md:text-5xl lg:text-6xl font-normal tracking-wider uppercase leading-tight mb-6 max-w-3xl drop-shadow-md">
                 Un chauffeur<br>à votre disposition
@@ -282,7 +281,6 @@
     </header>
 
     <!-- Section 1: NOS SERVICES -->
-    <!-- CORRECTION 2 : Ajout de pb-16 md:pb-24 pour plus d'espace sous le CTA -->
     <section id="services" class="pt-12 pb-16 md:pt-16 md:pb-24 px-4 container mx-auto max-w-6xl">
         <div class="text-center max-w-3xl mx-auto mb-10 md:mb-16">
             <p class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-gold font-semibold mb-2">
@@ -501,18 +499,17 @@
                 observerCards.observe(card);
             });
 
-            // CORRECTION 3 : Threshold baissé à 0.05 pour que l'animation se déclenche plus tôt sur mobile
+            // MODIFICATION ICI : On remet le "else" pour retirer la classe et rejouer l'animation au scroll
             const listSection = document.querySelector('.list-section');
             const observerList = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
                     } else {
-                        // On ne l'enlève pas pour mobile, ou on le laisse pour le scroll infini
-                        // entry.target.classList.remove('is-visible'); 
+                        entry.target.classList.remove('is-visible'); // <--- AJOUTÉ ICI
                     }
                 });
-            }, { threshold: 0.05 }); // <--- MODIFIÉ ICI
+            }, { threshold: 0.1 }); // Threshold remonté à 0.1
 
             if(listSection) {
                 observerList.observe(listSection);
