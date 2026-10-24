@@ -375,12 +375,74 @@
 
         .video-fade-in { animation: videoFadeIn 0.8s ease-in forwards; }
         @keyframes videoFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* =========================================
+           NOUVELLE ANIMATION DU FOOTER : LA VOITURE (CORRIGÉE)
+           ========================================= */
+        
+        /* Conteneur de l'animation */
+        .footer-car-container {
+            position: absolute;
+            top: 15px; /* Placé dans l'espace vide en haut */
+            left: 0;
+            width: 100%;
+            height: 40px; 
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 50; /* Pour passer au-dessus du logo */
+        }
+
+        /* La voiture */
+        .footer-car {
+            position: absolute;
+            top: 50%;
+            left: -200px; /* Commence hors écran à gauche */
+            transform: translateY(-50%);
+            width: 160px; /* Taille réduite pour être élégante */
+            height: auto;
+            opacity: 0;
+        }
+
+        /* Le style du SVG (couleur dorée) */
+        .footer-car svg {
+            width: 100%;
+            height: auto;
+            fill: var(--gold); /* Remplissage doré */
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8)); /* Effet de phares */
+            /* On retourne le SVG pour que le capot soit à droite */
+            transform: scaleX(-1);
+        }
+
+        /* La traînée de lumière derrière la voiture */
+        .footer-car::after {
+            content: '';
+            position: absolute;
+            top: 60%; /* Ajusté pour être au niveau des roues */
+            right: 100%; /* La traînée est derrière la voiture */
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6));
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+
+        /* Déclenchement de l'animation quand le footer est visible */
+        .footer-animate .footer-car {
+            animation: driveCar 7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes driveCar {
+            0% { left: -200px; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { left: 110%; opacity: 0; }
+        }
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased selection:bg-gold selection:text-white">
 
     <!-- Floating WhatsApp Button -->
-    <a href="#" aria-label="Contact WhatsApp" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+    <a href="https://wa.me/33651889935" target="_blank" aria-label="Contact WhatsApp" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
         <i class="fa-brands fa-whatsapp text-3xl"></i>
     </a>
 
@@ -407,8 +469,8 @@
             <div class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest font-medium">
                 <a href="#" class="hover:text-gold transition">Accueil</a>
                 <a href="#services" class="hover:text-gold transition">Nos Services</a>
-                <a href="#reservation" class="hover:text-gold transition">Réservation</a>
-                <a href="#flotte" class="hover:text-gold transition">Notre Flotte</a>
+                <a href="#inclus" class="hover:text-gold transition">Garanties</a>
+                <a href="#chauffeur" class="hover:text-gold transition">À Propos</a>
                 <a href="#contact" class="hover:text-gold transition">Contact</a>
             </div>
 
@@ -421,8 +483,8 @@
             <div class="flex flex-col items-center py-6 space-y-4 text-sm uppercase tracking-widest font-medium">
                 <a href="#" class="hover:text-gold transition w-full text-center py-2">Accueil</a>
                 <a href="#services" class="hover:text-gold transition w-full text-center py-2">Nos Services</a>
-                <a href="#reservation" class="hover:text-gold transition w-full text-center py-2">Réservation</a>
-                <a href="#flotte" class="hover:text-gold transition w-full text-center py-2">Notre Flotte</a>
+                <a href="#inclus" class="hover:text-gold transition w-full text-center py-2">Garanties</a>
+                <a href="#chauffeur" class="hover:text-gold transition w-full text-center py-2">À Propos</a>
                 <a href="#contact" class="hover:text-gold transition w-full text-center py-2">Contact</a>
             </div>
         </div>
@@ -450,7 +512,7 @@
                 Nos Services
             </h2>
             <p class="text-sm md:text-base text-black leading-relaxed">
-                Je suis un chauffeur indépendant et je mets à votre disposition mon véhicule haut de gamme récent. Grâce à mon expérience, je vous assure des trajets discrets, ponctuels et sur-mesure pour tous vos déplacements professionnels ou personnels à Paris et en Île-de-France.
+                Je suis un chauffeur indépendant et je mets à votre disposition mon véhicule haut de gamme récent.
             </p>
         </div>
 
@@ -461,7 +523,7 @@
                 <div class="relative z-10">
                     <div class="text-gold mb-4"><i class="main-icon icon-plane fa-solid fa-plane text-2xl"></i></div>
                     <h3>Transfert hubs</h3>
-                    <p>Prise en charge vers tous les aéroports et gares de Poitiers et alentours.</p>
+                    <p>Prise en charge vers tous les aéroports.</p>
                 </div>
             </div>
 
@@ -536,7 +598,7 @@
     </section>
 
     <!-- SECTION : INCLUS DANS CHAQUE PRESTATION -->
-    <section class="list-section bg-[#0f0f0f] py-12 md:py-24 px-4 text-white">
+    <section id="inclus" class="list-section bg-[#0f0f0f] py-12 md:py-24 px-4 text-white">
         <div class="container mx-auto max-w-4xl">
             
             <div class="text-center mb-10 md:mb-16">
@@ -589,7 +651,7 @@
                     <div class="list-icon w-10 h-10 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center rounded-full bg-white/5 text-gold mr-4 md:mr-5">
                         <i class="fa-solid fa-money-bill-wave text-base md:text-lg"></i>
                     </div>
-                    <p class="text-sm md:text-base font-light tracking-wide text-gray-200">Frais de péage et parking Île-de-France inclus</p>
+                    <p class="text-sm md:text-base font-light tracking-wide text-gray-200">Frais de péage et parking inclus</p>
                 </div>
 
             </div>
@@ -597,7 +659,7 @@
     </section>
 
     <!-- NOUVELLE SECTION : QUI SUIS-JE ? -->
-    <section class="py-16 md:py-24 px-4 bg-white container mx-auto max-w-6xl">
+    <section id="chauffeur" class="py-16 md:py-24 px-4 bg-white container mx-auto max-w-6xl">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
             
             <!-- Bloc Photo -->
@@ -641,14 +703,286 @@
         </div>
     </section>
 
-    <!-- SCRIPT POUR LES ANIMATIONS -->
-    <script>
+    <!-- NOUVELLE SECTION : FORMULAIRE DE CONTACT -->
+    <section id="contact" class="py-16 md:py-24 px-4 bg-[#f9f9f9]">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 bg-white shadow-xl rounded-sm overflow-hidden">
+                
+                <!-- Bloc Coordonnées (Gauche) -->
+                <div class="lg:col-span-2 bg-[#0f0f0f] p-8 md:p-12 text-white flex flex-col justify-between relative overflow-hidden">
+                    <!-- Effet de halo doré décoratif -->
+                    <div class="absolute top-0 left-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+                    
+                    <div class="relative z-10">
+                        <h3 class="font-title text-2xl mb-4 text-gold">Discutons de votre trajet</h3>
+                        <p class="text-gray-400 text-sm font-light leading-relaxed mb-8">
+                            Une question, une demande de devis spécifique ou une réservation de dernière minute ? N'hésitez pas à me contacter directement, je vous répondrai dans les plus brefs délais.
+                        </p>
+
+                        <div class="space-y-6">
+                            <!-- Téléphone -->
+                            <a href="tel:+33651889935" class="flex items-center group">
+                                <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-gold mr-4 group-hover:bg-gold group-hover:text-black transition-colors duration-300">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase tracking-widest">Téléphone</p>
+                                    <p class="font-bold text-lg">06 51 88 99 35</p>
+                                </div>
+                            </a>
+                            
+                            <!-- Email -->
+                            <div class="flex items-center group">
+                                <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-gold mr-4">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase tracking-widest">Email</p>
+                                    <p class="font-medium">contact@drivor.fr</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Localisation -->
+                            <div class="flex items-center group">
+                                <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-gold mr-4">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase tracking-widest">Zone d'intervention</p>
+                                    <p class="font-medium">Nouvelle Aquitaine</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 mt-12 pt-6 border-t border-white/10">
+                        <p class="text-xs text-gray-500">Disponible 7j/7 de 05h00 à 23h00.</p>
+                    </div>
+                </div>
+
+                <!-- Bloc Formulaire (Droite) -->
+                <div class="lg:col-span-3 p-8 md:p-12">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Demande de devis gratuit</h3>
+                    
+                    <!-- FORMULAIRE CONNECTÉ À FORMSPREE -->
+                    <form action="https://formspree.io/f/xkjjgwvp" method="POST" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="nom" class="block text-xs font-medium text-gray-700 uppercase tracking-wider mb-2">Nom complet</label>
+                                <input type="text" name="nom" id="nom" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-sm focus:ring-gold focus:border-gold block w-full p-3 outline-none transition" placeholder="Jean Dupont" required>
+                            </div>
+                            <div>
+                                <label for="telephone" class="block text-xs font-medium text-gray-700 uppercase tracking-wider mb-2">Téléphone</label>
+                                <input type="tel" name="telephone" id="telephone" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-sm focus:ring-gold focus:border-gold block w-full p-3 outline-none transition" placeholder="06 00 00 00 00" required>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="date" class="block text-xs font-medium text-gray-700 uppercase tracking-wider mb-2">Date du trajet</label>
+                                <input type="date" name="date" id="date" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-sm focus:ring-gold focus:border-gold block w-full p-3 outline-none transition">
+                            </div>
+                            <div>
+                                <label for="service" class="block text-xs font-medium text-gray-700 uppercase tracking-wider mb-2">Type de service</label>
+                                <select name="service" id="service" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-sm focus:ring-gold focus:border-gold block w-full p-3 outline-none transition">
+                                    <option>Transfert Aéroport</option>
+                                    <option>Mise à disposition</option>
+                                    <option>Mariage / Événement</option>
+                                    <option>Excursion / Tourisme</option>
+                                    <option>Autre demande</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-xs font-medium text-gray-700 uppercase tracking-wider mb-2">Votre message</label>
+                            <textarea name="message" id="message" rows="4" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-sm focus:ring-gold focus:border-gold block w-full p-3 outline-none transition" placeholder="Précisez votre adresse de départ, d'arrivée, le nombre de passagers..."></textarea>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="w-full bg-gold hover:bg-gold-dark text-white text-sm uppercase tracking-[0.2em] font-semibold py-4 px-8 rounded-sm shadow-md transition duration-300">
+                                Envoyer ma demande
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOUVELLE SECTION : FAQ -->
+    <section class="py-16 md:py-24 px-4 bg-white">
+        <div class="container mx-auto max-w-3xl">
+            <div class="text-center mb-12">
+                <p class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-gold font-semibold mb-2">
+                    Questions Fréquentes
+                </p>
+                <h2 class="text-2xl md:text-3xl font-normal uppercase tracking-widest text-gray-900">
+                    Vous avez une question ?
+                </h2>
+            </div>
+
+            <!-- Accordéons -->
+            <div class="space-y-4">
+                <!-- Question 1 -->
+                <div class="border border-gray-200 rounded-sm overflow-hidden faq-item">
+                    <button class="w-full flex items-center justify-between p-5 bg-white hover:bg-gray-50 transition-colors text-left faq-button">
+                        <span class="font-medium text-gray-900">Comment se déroule la réservation ?</span>
+                        <i class="fa-solid fa-plus text-gold transition-transform duration-300 faq-icon"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <p class="p-5 text-sm text-gray-600 font-light leading-relaxed">
+                            Vous pouvez réserver en m'appelant directement ou en remplissant le formulaire de contact ci-dessus. Dès réception de votre demande, je vous confirme la disponibilité du véhicule et vous communique un tarif fixe. Aucun paiement n'est demandé à la réservation.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="border border-gray-200 rounded-sm overflow-hidden faq-item">
+                    <button class="w-full flex items-center justify-between p-5 bg-white hover:bg-gray-50 transition-colors text-left faq-button">
+                        <span class="font-medium text-gray-900">Que se passe-t-il si mon vol est retardé ?</span>
+                        <i class="fa-solid fa-plus text-gold transition-transform duration-300 faq-icon"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <p class="p-5 text-sm text-gray-600 font-light leading-relaxed">
+                            Je suis le vol en temps réel. En cas de retard, je m'adapte à votre heure d'arrivée réelle sans frais supplémentaires. Je vous attends avec une pancarte à votre nom dans la zone d'arrivée.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="border border-gray-200 rounded-sm overflow-hidden faq-item">
+                    <button class="w-full flex items-center justify-between p-5 bg-white hover:bg-gray-50 transition-colors text-left faq-button">
+                        <span class="font-medium text-gray-900">Quels sont les moyens de paiement acceptés ?</span>
+                        <i class="fa-solid fa-plus text-gold transition-transform duration-300 faq-icon"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <p class="p-5 text-sm text-gray-600 font-light leading-relaxed">
+                            J'accepte les paiements en espèces, par carte bancaire (via un terminal de paiement mobile), ou par virement bancaire (uniquement pour les réservations anticipées). Une facture vous est fournie systématiquement sur demande.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="border border-gray-200 rounded-sm overflow-hidden faq-item">
+                    <button class="w-full flex items-center justify-between p-5 bg-white hover:bg-gray-50 transition-colors text-left faq-button">
+                        <span class="font-medium text-gray-900">Puis-je voyager avec mon animal de compagnie ?</span>
+                        <i class="fa-solid fa-plus text-gold transition-transform duration-300 faq-icon"></i>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+                        <p class="p-5 text-sm text-gray-600 font-light leading-relaxed">
+                            Oui, les animaux de petite et moyenne taille sont acceptés à condition qu'ils soient dans un sac de transport adapté ou tenus en laisse. Merci de me le préciser lors de la réservation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOUVEAU FOOTER AVEC ANIMATION DE VOITURE SVG -->
+    <footer id="footer" class="bg-[#0a0a0a] text-white pt-16 pb-8 border-t border-gray-800 relative overflow-hidden">
+        
+        <!-- Conteneur de l'animation de la voiture (placé tout en haut, au-dessus du logo) -->
+        <div class="footer-car-container">
+            <!-- La voiture SVG -->
+            <div class="footer-car">
+                <svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Ligne de sol -->
+                    <path d="M 30,200 L 610,200" stroke="#b39359" stroke-width="4" fill="none" />
+                    <!-- Carrosserie principale -->
+                    <path d="M 40,180 L 40,140 C 40,130 50,120 70,115 L 150,95 L 220,60 C 250,45 300,40 360,40 C 420,40 470,50 520,70 L 580,100 C 600,110 610,120 610,140 L 610,180 Z" />
+                    <!-- Vitres -->
+                    <path d="M 160,95 L 230,65 C 260,52 300,48 340,48 L 340,95 Z" fill="#0a0a0a" />
+                    <path d="M 360,48 C 410,48 450,55 490,70 L 520,95 L 360,95 Z" fill="#0a0a0a" />
+                    <!-- Roues -->
+                    <circle cx="170" cy="180" r="35" fill="#0a0a0a" stroke="#b39359" stroke-width="5"/>
+                    <circle cx="170" cy="180" r="15" fill="#b39359" />
+                    <circle cx="490" cy="180" r="35" fill="#0a0a0a" stroke="#b39359" stroke-width="5"/>
+                    <circle cx="490" cy="180" r="15" fill="#b39359" />
+                    <!-- Phare avant -->
+                    <path d="M 600,125 L 615,130 L 615,140 L 600,145 Z" fill="#e8c766" />
+                    <!-- Feu arrière -->
+                    <path d="M 40,130 L 30,130 L 30,145 L 40,145 Z" fill="#e8c766" />
+                </svg>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 max-w-6xl relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8 mb-12">
+                
+                <!-- Colonne 1 : Logo et Présentation -->
+                <div class="col-span-1 md:col-span-2 flex flex-col items-start">
+                    <div class="footer-logo mb-6">
+                        <img src="https://i.ibb.co/QR5vjKC/logo-fond-noir-removebg-preview-2.png" alt="Logo Drive'OR" class="h-16 md:h-20 w-auto object-contain">
+                    </div>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed max-w-sm">
+                        Votre chauffeur privé en Nouvelle Aquitaine. Un service haut de gamme, discret et ponctuel pour tous vos déplacements.
+                    </p>
+                </div>
+
+                <!-- Colonne 2 : Liens -->
+                <div>
+                    <h4 class="font-title text-gold text-lg mb-4">Navigation</h4>
+                    <ul class="space-y-3 text-sm text-gray-400 font-light">
+                        <li><a href="#" class="hover:text-gold transition">Accueil</a></li>
+                        <li><a href="#services" class="hover:text-gold transition">Nos Services</a></li>
+                        <li><a href="#inclus" class="hover:text-gold transition">Garanties</a></li>
+                        <li><a href="#chauffeur" class="hover:text-gold transition">À Propos</a></li>
+                        <li><a href="#contact" class="hover:text-gold transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Colonne 3 : Coordonnées -->
+                <div>
+                    <h4 class="font-title text-gold text-lg mb-4">Contact</h4>
+                    <ul class="space-y-3 text-sm text-gray-400 font-light">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-location-dot mt-1 mr-3 text-gold"></i>
+                            <span>Nouvelle Aquitaine</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-phone mr-3 text-gold"></i>
+                            <a href="tel:+33651889935" class="hover:text-gold transition">06 51 88 99 35</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-envelope mr-3 text-gold"></i>
+                            <a href="mailto:contact@drivor.fr" class="hover:text-gold transition">contact@drivor.fr</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-id-card mr-3 text-gold"></i>
+                            <span>SIRET: 109 965 087 00017</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-car mr-3 text-gold"></i>
+                            <span>Carte VTC: 2024/75-XXXXX</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Barre inférieure -->
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-xs text-gray-500 mb-4 md:mb-0">
+                    &copy; 2025 Drive'OR. Tous droits réservés.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-500 hover:text-gold transition">Mentions légales</a>
+                    <a href="#" class="text-gray-500 hover:text-gold transition">Politique de confidentialité</a>
+                    <a href="#" class="text-gray-500 hover:text-gold transition">CGV</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT POUR LES ANIMATIONS ET LA FAQ -->
+        <script>
         document.addEventListener("DOMContentLoaded", function() {
             
             window.addEventListener('load', function() {
                 document.body.classList.add('loaded');
             });
 
+            // Animation des cartes et de la liste
             const cards = document.querySelectorAll('.service-card');
             const observerCards = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -679,6 +1013,7 @@
                 observerList.observe(listSection);
             }
 
+            // Menu Mobile
             const menuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             
@@ -696,6 +1031,7 @@
                 });
             });
 
+            // Vidéo Hero
             const video = document.getElementById('hero-video');
             if (video) {
                 video.addEventListener('canplay', function() {
@@ -706,6 +1042,51 @@
                 if (video.readyState >= 3) {
                     video.play().catch(e => console.log(e));
                 }
+            }
+
+            // GESTION DE LA FAQ (ACCORDÉONS)
+            const faqButtons = document.querySelectorAll('.faq-button');
+            
+            faqButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    const icon = button.querySelector('.faq-icon');
+                    
+                    document.querySelectorAll('.faq-content').forEach(item => {
+                        if (item !== content) {
+                            item.style.maxHeight = null;
+                            item.previousElementSibling.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.style.transform = 'rotate(45deg)';
+                    }
+                });
+            });
+
+            // =========================================
+            // ANIMATION DU FOOTER (SE RELANCE À CHAQUE SCROLL)
+            // =========================================
+            const footer = document.getElementById('footer');
+            const observerFooter = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // On ajoute la classe pour lancer l'animation
+                        footer.classList.add('footer-animate');
+                    } else {
+                        // On la retire pour pouvoir la relancer la prochaine fois
+                        footer.classList.remove('footer-animate');
+                    }
+                });
+            }, { threshold: 0.2 }); // Se déclenche quand 20% du footer est visible
+
+            if(footer) {
+                observerFooter.observe(footer);
             }
         });
     </script>
